@@ -1,32 +1,38 @@
-import { StyleSheet } from 'react-native';
-import { Text } from 'react-native-elements';
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { View } from '@/components/Themed';
-
+// import Accueil from "./components/Accueil";
+// import "../global.css";
+import Connexion from "../authentification/connexion";
+import Inscription from "../authentification/inscription";
+import Home from "../Accueil/home";
+// import Navigation from "./components/Navigation";
+const Stack = createNativeStackNavigator();
 export default function TabOneScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
-    </View>
+    <Stack.Navigator
+      initialRouteName="home"
+      screenOptions={{ headerShown: false }}
+    >
+      <Stack.Screen name="connexion" component={Connexion} />
+      <Stack.Screen name="inscription" component={Inscription} />
+      <Stack.Screen name="home" component={Home} />
+    </Stack.Navigator>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+// const styles = StyleSheet.create({
+//   container: {
+//     flex: 1,
+//     alignItems: "center",
+//     justifyContent: "center",
+//   },
+//   title: {
+//     fontSize: 20,
+//     fontWeight: "bold",
+//   },
+//   separator: {
+//     marginVertical: 30,
+//     height: 1,
+//     width: "80%",
+//   },
+// });
