@@ -1,62 +1,78 @@
 import { View } from "@/components/Themed";
-import {router} from "expo-router";
+import { router } from "expo-router";
 import { useState } from "react";
-import { StyleSheet, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  ScrollView,
+  Platform,
+} from "react-native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 export default function Connexion() {
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorEmail, setErrorEmail] = useState<{state:boolean,message:string}>({
+  const [errorEmail, setErrorEmail] = useState<{
+    state: boolean;
+    message: string;
+  }>({
     state: false,
-    message: "",});
-  const [errorUsername, setErrorUsername] = useState<{state:boolean,message:string}>({state: false,
-    message: "",});
-  const [errorPassword, setErrorPassword] = useState<{state:boolean,message:string}>({state: false,
-    message: "",});
+    message: "",
+  });
+  const [errorUsername, setErrorUsername] = useState<{
+    state: boolean;
+    message: string;
+  }>({ state: false, message: "" });
+  const [errorPassword, setErrorPassword] = useState<{
+    state: boolean;
+    message: string;
+  }>({ state: false, message: "" });
   const [isLoading, setIsLoading] = useState(false);
-  const handleChangeEmail = (text:string) => {
+  const handleChangeEmail = (text: string) => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (text.trim() === '') {
-      setErrorEmail({state:false,message:'veulliez remplir le champ'});
+    if (text.trim() === "") {
+      setErrorEmail({ state: false, message: "veulliez remplir le champ" });
     } else if (!regexEmail.test(text)) {
-      setErrorEmail({state:false,message:'Email invalide.'});
+      setErrorEmail({ state: false, message: "Email invalide." });
     } else {
-      setErrorEmail({state:true,message:'Valide'});
+      setErrorEmail({ state: true, message: "Valide" });
       // Tu peux ici envoyer les données
     }
-  }
-  const handleChangeUsername = (text:string) => {
-    if (text.trim() === '') {
-      setErrorUsername({state:false,message:'veulliez remplir le champ'});
+  };
+  const handleChangeUsername = (text: string) => {
+    if (text.trim() === "") {
+      setErrorUsername({ state: false, message: "veulliez remplir le champ" });
     } else if (text.length < 3) {
-      setErrorUsername({state:false,message:'3 caractères minimum.'});
+      setErrorUsername({ state: false, message: "3 caractères minimum." });
     } else {
-      setErrorUsername({state:true,message:'Valide'});
+      setErrorUsername({ state: true, message: "Valide" });
       // Tu peux ici envoyer les données
     }
-  }
-  const handleChangePassword = (text:string) => {
-    if (text.trim() === '') {
-      setErrorPassword({state:false,message:'veulliez remplir le champ'});
+  };
+  const handleChangePassword = (text: string) => {
+    if (text.trim() === "") {
+      setErrorPassword({ state: false, message: "veulliez remplir le champ" });
     } else if (text.length < 3) {
-      setErrorPassword({state:false,message:'8 caractères minimum.'});
+      setErrorPassword({ state: false, message: "8 caractères minimum." });
     } else {
-      setErrorUsername({state:true,message:'Valide'});
+      setErrorUsername({ state: true, message: "Valide" });
       // Tu peux ici envoyer les données
     }
-  }
-
+  };
 
   return (
     <>
-    <KeyboardAwareScrollView
-  contentContainerStyle={connexionStyle.container}
-  keyboardShouldPersistTaps="handled"
-    >
-  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-    {/* <View style={connexionStyle.container}> */}
+      <KeyboardAvoidingView
+        style={connexionStyle.container}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
+        {/* <View style={connexionStyle.container}> */}
         <View style={connexionStyle.containerForm}>
           <Text style={connexionStyle.TextConnexion}>Connexion</Text>
           <Text style={connexionStyle.TextConnexionDesc}>
@@ -64,7 +80,15 @@ export default function Connexion() {
           </Text>
           <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Email</Text>
-            <Text style={!errorEmail.state?connexionStyle.InputLabelErrorStyle:connexionStyle.InputLabelValideStyle}>{errorEmail.message}</Text>
+            <Text
+              style={
+                !errorEmail.state
+                  ? connexionStyle.InputLabelErrorStyle
+                  : connexionStyle.InputLabelValideStyle
+              }
+            >
+              {errorEmail.message}
+            </Text>
           </View>
           <TextInput
             style={connexionStyle.InputStyle}
@@ -74,7 +98,15 @@ export default function Connexion() {
           />
           <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Nom d'utilisateur</Text>
-            <Text style={!errorUsername.state?connexionStyle.InputLabelErrorStyle:connexionStyle.InputLabelValideStyle}>{errorUsername.message}</Text>
+            <Text
+              style={
+                !errorUsername.state
+                  ? connexionStyle.InputLabelErrorStyle
+                  : connexionStyle.InputLabelValideStyle
+              }
+            >
+              {errorUsername.message}
+            </Text>
           </View>
           <TextInput
             style={connexionStyle.InputStyle}
@@ -84,7 +116,15 @@ export default function Connexion() {
           />
           <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Mot de passe</Text>
-            <Text style={!errorPassword.state?connexionStyle.InputLabelErrorStyle:connexionStyle.InputLabelValideStyle}>{errorPassword.message}</Text>
+            <Text
+              style={
+                !errorPassword.state
+                  ? connexionStyle.InputLabelErrorStyle
+                  : connexionStyle.InputLabelValideStyle
+              }
+            >
+              {errorPassword.message}
+            </Text>
           </View>
           <TextInput
             style={connexionStyle.InputStyle}
@@ -96,8 +136,8 @@ export default function Connexion() {
           <TouchableOpacity
             style={connexionStyle.ButtonStyle}
             onPress={() => {
-              console.log("ato")
-              router.replace("/(tabs)/home")
+              console.log("ato");
+              router.replace("/(tabs)/home");
             }}
           >
             <Text style={connexionStyle.TextButtonStyle}>se connecter</Text>
@@ -115,8 +155,7 @@ export default function Connexion() {
           </View>
         </View>
         {/* </View> */}
-      </TouchableWithoutFeedback>
-    </KeyboardAwareScrollView>
+      </KeyboardAvoidingView>
     </>
   );
 }
@@ -134,7 +173,7 @@ const connexionStyle = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    flexGrow:1,
+    flex: 1,
   },
   containerForm: {
     width: "90%",
@@ -157,7 +196,7 @@ const connexionStyle = StyleSheet.create({
     paddingRight: 10,
     fontWeight: "medium",
   },
-  InputErrorStyle:{
+  InputErrorStyle: {
     width: "100%",
     height: 35,
     borderRadius: 8,
@@ -211,19 +250,19 @@ const connexionStyle = StyleSheet.create({
     color: "gray",
     fontWeight: "500",
   },
-  InputLabelErrorStyle:{
-    fontSize:11,
-    color:"red",
-    fontWeight:"bold",
+  InputLabelErrorStyle: {
+    fontSize: 11,
+    color: "red",
+    fontWeight: "bold",
   },
-  InputLabelValideStyle:{
-    fontSize:11,
-    color:"green",
-    fontWeight:"bold",
+  InputLabelValideStyle: {
+    fontSize: 11,
+    color: "green",
+    fontWeight: "bold",
   },
-  ViewLabelStyle:{
+  ViewLabelStyle: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
-  }
+  },
 });

@@ -1,11 +1,21 @@
 import { View } from "@/components/Themed";
-import {router} from "expo-router";
-import { StyleSheet, TouchableOpacity, Text, TextInput } from "react-native";
+import { router } from "expo-router";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Text,
+  TextInput,
+  KeyboardAvoidingView,
+  Platform,
+} from "react-native";
 
 export default function Inscription() {
   return (
     <>
-      <View style={inscriptionStyle.container}>
+      <KeyboardAvoidingView
+        style={inscriptionStyle.container}
+        behavior={Platform.OS == "ios" ? "padding" : "height"}
+      >
         {/* <View style={inscriptionStyle.containerStyle}></View> */}
         <View style={inscriptionStyle.containerForm}>
           <View>
@@ -65,7 +75,7 @@ export default function Inscription() {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </>
   );
 }
