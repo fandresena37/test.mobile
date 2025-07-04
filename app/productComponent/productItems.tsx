@@ -4,6 +4,7 @@ import {Svg,Path,Line,Circle} from 'react-native-svg'
 import { StyleSheet} from "react-native";
 import ViewItems from "./viewItems";
 import { useState } from "react";
+import { dataType } from "@/type/data";
 const imagePathRequire:{ [key: string]: any } = {
     "12.jpeg": require("../../assets/images/12.jpeg"),
     "486.jpg": require("../../assets/images/486.jpeg"),
@@ -12,13 +13,13 @@ const imagePathRequire:{ [key: string]: any } = {
     "489.jpeg": require("../../assets/images/489.jpeg"),
     "481.jpeg": require("../../assets/images/481.jpeg"),
 }
-export default function ProductItems({name,src,desc,price,stock,categories,vendeur}: {name:string,src:string,desc:string,price:number,stock:number,categories:string,vendeur:string}) {
-    const [viewState,setViewState] = useState<boolean>(false);
+export default function ProductItems({id,name,src,desc,price,stock,categories,vendeur,setViewState}: {id:string,name:string,src:string,desc:string,price:number,stock:number,categories:string,vendeur:string,setViewState:React.Dispatch<React.SetStateAction<{state:boolean,data:dataType} | undefined>>}) {
+    // const [viewState,setViewState] = useState<boolean>(false);
     return (
         <>
-            {viewState && <ViewItems name={name} src={src} desc={desc} price={price} stock={stock} categories={categories} vendeur={vendeur}/>}
+            {/* {viewState && <ViewItems name={name} src={src} desc={desc} price={price} stock={stock} categories={categories} vendeur={vendeur}/>} */}
             <View style={ProductStyle.container}>
-                <Image source={imagePathRequire[src]} style={ProductStyle.imageStyle} resizeMode="cover"/>
+                <Image source={imagePathRequire[src]} style={ProductStyle.imageStyle}/>
                 <Text style={{color:"green",fontSize:20,fontWeight:"bold",marginTop:10}}>{price} Ar</Text>
                 <Text style={{fontSize:12,color:"gray",marginTop:10}}>{desc}</Text>
                 <View style={ProductStyle.ButtonContainerStyle}>
@@ -26,7 +27,7 @@ export default function ProductItems({name,src,desc,price,stock,categories,vende
                         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><Path d="m15 5 4 4"/></Svg>
                     </TouchableOpacity>
                     <TouchableOpacity style={ProductStyle.ButtonViewStyle} onPress={() => {
-                        setViewState(true);
+                        setViewState({state:true,data:{id:id,name:name,src:src,desc:desc,price:price,stock:stock,categories:categories,vendeur:vendeur}});
                     }}>
                         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><Circle cx="12" cy="12" r="3"/></Svg>
                     </TouchableOpacity>
@@ -42,13 +43,16 @@ export default function ProductItems({name,src,desc,price,stock,categories,vende
 const ProductStyle = StyleSheet.create({
     container:{
         width:"100%",
-        height:"auto",
+        height:450,
         borderRadius:10,
         padding:20,
         marginBottom:20,
+        display:"flex",
+        flexDirection:"column",
     },
     imageStyle:{
         width:"100%",
+        height:300,
         borderRadius:10
     },
     ButtonContainerStyle:{

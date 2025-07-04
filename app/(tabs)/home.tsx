@@ -8,22 +8,21 @@ import { useEffect, useState } from "react";
 import ProductItems from "../productComponent/productItems";
 import { Picker } from "@react-native-picker/picker";
 import data from "../../data/data.json";
+import ViewItems from "../productComponent/viewItems";
+import { dataType } from "@/type/data";
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
 }) {
   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
 }
-
+const testData={id:"EBSD",src:"12.jpeg",desc:"Ericson Black&White Snare Drum",price:25000,stock:20,categories:"guitar",vendeur:"fax",nom:"test"}
 export default function Home() {
-  const [selectedValue,setSelectedValue] = useState<string>("")
-  // useEffect(() => {
-  //   router.replace("/authentification/connexion");
-  // }, []);
-  
-    const colorScheme = useColorScheme();
+  const [selectedValue,setSelectedValue] = useState<string>("");
+  const [viewState,setViewState] = useState<{state:boolean,data:dataType}|undefined>({state:false,data:{id:"",name:"",src:"",desc:"",price:0,stock:0,categories:"",vendeur:""}});
     return(
     <>
+    {viewState?.state == true && <ViewItems setViewState={setViewState} name={viewState.data.name} src={viewState.data.src} desc={viewState.data.desc} price={viewState.data.price} stock={viewState.data.stock} vendeur={viewState.data.vendeur} categories={viewState.data.categories} />}
     <View style={homeStyle.container}>
       <View style={homeStyle.headerStyle}>
         <View>
@@ -90,7 +89,7 @@ export default function Home() {
       </View>
       <ScrollView style={homeStyle.ViewProduct}>
           {data.map((items)=>(
-            <ProductItems name={items.nom} src={items.src} price={items.price} desc={items.desc} categories={items.categories} vendeur={items.vendeur} stock={items.stock} key={items.id}/>
+            <ProductItems name={items.nom} src={items.src} price={items.price} desc={items.desc} categories={items.categories} vendeur={items.vendeur} stock={items.stock} id={items.id} key={items.id} setViewState={setViewState}/>
           ))}
         {/* <ProductItems/>
         <ProductItems/>
@@ -108,6 +107,7 @@ const homeStyle = StyleSheet.create({
     paddingRight: 20,
     backgroundColor: "rgb(243, 243, 243)",
     height: "100%",
+    position:"relative"
   },
   headerStyle: {
     marginTop: 50,
@@ -115,6 +115,7 @@ const homeStyle = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    position:"relative"
   },
   headerTitleStyle: {
     fontSize: 20,
@@ -158,6 +159,7 @@ const homeStyle = StyleSheet.create({
     marginTop:20,
     display:"flex",
     gap:20,
+    position:"relative",
   },
   ViewPagination:{
     display:"flex",

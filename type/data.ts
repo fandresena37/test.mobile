@@ -1,0 +1,1 @@
+export interface dataType {name:string,src:string,desc:string,price:number,stock:number,categories:string,vendeur:string,id:string}
