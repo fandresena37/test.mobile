@@ -14,10 +14,8 @@ const imagePathRequire:{ [key: string]: any } = {
     "481.jpeg": require("../../assets/images/481.jpeg"),
 }
 export default function ProductItems({id,name,src,desc,price,stock,categories,vendeur,setViewState}: {id:string,name:string,src:string,desc:string,price:number,stock:number,categories:string,vendeur:string,setViewState:React.Dispatch<React.SetStateAction<{state:boolean,data:dataType} | undefined>>}) {
-    // const [viewState,setViewState] = useState<boolean>(false);
     return (
         <>
-            {/* {viewState && <ViewItems name={name} src={src} desc={desc} price={price} stock={stock} categories={categories} vendeur={vendeur}/>} */}
             <View style={ProductStyle.container}>
                 <Image source={imagePathRequire[src]} style={ProductStyle.imageStyle}/>
                 <Text style={{color:"green",fontSize:20,fontWeight:"bold",marginTop:10}}>{price} Ar</Text>

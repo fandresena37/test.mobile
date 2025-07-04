@@ -26,20 +26,26 @@ export default function ViewItems({name,src,desc,price,stock,categories,vendeur,
                                 <Image source={imagePathRequire[src]} style={{width:"100%",height:300,borderRadius:10}} />
                             </View>
                             <View style={{display:"flex",flexDirection:"column",gap:10,marginTop:20}}>
-                                <Text style={{fontSize:30,fontWeight:"700"}}>{name}</Text>
-                                <Text style={{fontSize:12,color:"gray"}}>{desc}</Text>
-                                <Text style={{color:"green",fontWeight:"bold",fontSize:20}}>Prix: {price} Ar</Text>
-                                <Text style={{fontSize:12,color:"gray"}}>Stock: {stock}</Text>
-                                <Text style={{fontSize:12,color:"gray"}}>Catégorie: {categories}</Text>
-                                <Text style={{fontSize:12,color:"gray"}}>Vendeur: {vendeur}</Text>
+                                <View style={{display:"flex",flexDirection:"row",justifyContent:"space-between",alignItems:"center"}}>
+                                    <Text style={{fontSize:30,fontWeight:"700"}}>{name}</Text>
+                                    <Text style={{color:"green",fontWeight:"bold",fontSize:20}}>{price} Ar</Text>
+                                </View>
+                                <Text style={{fontSize:16,color:"gray"}}>{desc}</Text>
+                                <View style={{display:"flex",flexDirection:"column",marginTop:10,marginBottom:20}}>
+                                    <Text style={{fontSize:12,color:"gray"}}>Stock: {stock}</Text>
+                                    <Text style={{fontSize:12,color:"gray"}}>Catégorie: {categories}</Text>
+                                    <Text style={{fontSize:12,color:"gray"}}>Vendeur: {vendeur}</Text>
+                                </View>
                             </View>
                         </View>
                         <View style={ViewItemsStyle.ButtonContainerStyle}>
                             <TouchableOpacity style={ViewItemsStyle.ButtonEditStyle}>
-                                <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><Path d="m15 5 4 4"/></Svg>
+                                {/* <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><Path d="m15 5 4 4"/></Svg> */}
+                                <Text style={{color:"white",fontSize:17}}>Modifier</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={ViewItemsStyle.ButtonRemoveStyle} >
-                                <Svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M3 6h18"/><Path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><Line x1="10" x2="10" y1="11" y2="17"/><Line x1="14" x2="14" y1="11" y2="17"/></Svg>
+                                {/* <Svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M3 6h18"/><Path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><Line x1="10" x2="10" y1="11" y2="17"/><Line x1="14" x2="14" y1="11" y2="17"/></Svg> */}
+                                <Text style={{color:"white",fontSize:17}}>Supprimer</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -64,7 +70,7 @@ const ViewItemsStyle = StyleSheet.create({
     },
     ButtonEditStyle:{
         backgroundColor:"rgb(0, 132, 255)",
-        width:40,
+        width:"50%",
         height:40,
         borderRadius:10,
         display:"flex",
@@ -74,7 +80,7 @@ const ViewItemsStyle = StyleSheet.create({
     },
     ButtonRemoveStyle:{
         backgroundColor:"red",
-        width:40,
+        width:"50%",
         height:40,
         borderRadius:10,
         display:"flex",
@@ -86,7 +92,7 @@ const ViewItemsStyle = StyleSheet.create({
         display:"flex",
         flexDirection:"row",
         width:"100%",
-        justifyContent:"space-between",
         marginBottom:100,
+        gap:5,
     },
 })

@@ -1,33 +1,35 @@
 import { View } from "@/components/Themed";
-import { StyleSheet, TextInput,Text, TouchableOpacity} from "react-native";
+import { StyleSheet, TextInput,Text, TouchableOpacity, ScrollView} from "react-native";
 export default function Add(){
     return (
         <>
-         <View style={addStyle.container}>
-            <View style={{width:"95%",padding:20,borderRadius:8}}>
-                <View>
-                <Text style={addStyle.titleStyle}>Ajout</Text>
-                <Text style={addStyle.descStyle}>Ajouter de nouveau produit</Text>
-                </View>
-                <View style={addStyle.containerForm}>
-                    <TextInput style={addStyle.InputStyle} placeholder="nom du produit"/>
-                    <TextInput style={addStyle.InputStyle} placeholder="prix en Ar" keyboardType="numeric"/>
-                    <TextInput style={addStyle.InputStyle} placeholder="nombre en stock" keyboardType="numeric"/>
-                    <TextInput style={addStyle.InputStyle} placeholder="catégories"/>
-                    <TextInput style={addStyle.InputStyle} placeholder="nom du vendeur"/>
-                    <TextInput style={addStyle.TextAreaStyle} 
-                        placeholder="Description du produit ..."
-                        placeholderTextColor="gray"
-                        multiline={true}
-                        numberOfLines={5} // hauteur initiale
-                        textAlignVertical="top"/>
-                    <TextInput style={addStyle.InputStyle} placeholder="path de l'image"/>
-                    <TouchableOpacity style={addStyle.ButtonStyle}>
-                        <Text style={addStyle.TextButtonStyle}>Ajouter</Text>
-                    </TouchableOpacity>
+        <ScrollView>
+            <View style={addStyle.container}>
+                <View style={{width:"95%",padding:20,borderRadius:8}}>
+                    <View>
+                    <Text style={addStyle.titleStyle}>Ajout</Text>
+                    <Text style={addStyle.descStyle}>Ajouter de nouveau produit</Text>
+                    </View>
+                    <View style={addStyle.containerForm}>
+                        <TextInput style={addStyle.InputStyle} placeholder="nom du produit"/>
+                        <TextInput style={addStyle.InputStyle} placeholder="prix en Ar" keyboardType="numeric"/>
+                        <TextInput style={addStyle.InputStyle} placeholder="nombre en stock" keyboardType="numeric"/>
+                        <TextInput style={addStyle.InputStyle} placeholder="catégories"/>
+                        <TextInput style={addStyle.InputStyle} placeholder="nom du vendeur"/>
+                        <TextInput style={addStyle.TextAreaStyle} 
+                            placeholder="Description du produit ..."
+                            placeholderTextColor="gray"
+                            multiline={true}
+                            numberOfLines={5} // hauteur initiale
+                            textAlignVertical="top"/>
+                        <TextInput style={addStyle.InputStyle} placeholder="path de l'image"/>
+                        <TouchableOpacity style={addStyle.ButtonStyle}>
+                            <Text style={addStyle.TextButtonStyle}>Ajouter</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-         </View>
+         </ScrollView>
         </>
     );
 }
@@ -39,7 +41,7 @@ const addStyle = StyleSheet.create({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "rgb(243, 243, 243)", 
-        marginTop:10
+        marginTop:20
     },
     InputStyle: {
         width: "100%",

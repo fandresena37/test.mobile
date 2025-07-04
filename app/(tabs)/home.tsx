@@ -9,6 +9,8 @@ import ProductItems from "../productComponent/productItems";
 import { Picker } from "@react-native-picker/picker";
 import data from "../../data/data.json";
 import ViewItems from "../productComponent/viewItems";
+
+import DropDownPicker from "react-native-dropdown-picker";
 import { dataType } from "@/type/data";
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
@@ -20,6 +22,12 @@ const testData={id:"EBSD",src:"12.jpeg",desc:"Ericson Black&White Snare Drum",pr
 export default function Home() {
   const [selectedValue,setSelectedValue] = useState<string>("");
   const [viewState,setViewState] = useState<{state:boolean,data:dataType}|undefined>({state:false,data:{id:"",name:"",src:"",desc:"",price:0,stock:0,categories:"",vendeur:""}});
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: "Java", value: "java" },
+    { label: "JavaScript", value: "js" },
+  ]);
     return(
     <>
     {viewState?.state == true && <ViewItems setViewState={setViewState} name={viewState.data.name} src={viewState.data.src} desc={viewState.data.desc} price={viewState.data.price} stock={viewState.data.stock} vendeur={viewState.data.vendeur} categories={viewState.data.categories} />}
@@ -49,7 +57,20 @@ export default function Home() {
           style={homeStyle.InputSearchStyle}
           placeholder="recherche ..."
         />
-        <Picker
+        <DropDownPicker
+          open={open}
+          value={value}
+          items={items}
+          setOpen={setOpen}
+          setValue={setValue}
+          setItems={setItems}
+          style={homeStyle.ButtonFilterStyle}
+          dropDownContainerStyle={{width:"50%",borderRadius:8,backgroundColor:"white",borderColor:"rgba(238, 238, 238, 0.7)"}}
+          textStyle={{fontSize:12,fontWeight:"medium",color:"gray"}}
+          labelStyle={{fontSize:12,fontWeight:"medium",color:"gray"}}
+          placeholder="filtrer"
+        />
+        {/* <Picker
         selectedValue={selectedValue}
         style={homeStyle.ButtonFilterStyle}
         onValueChange={(itemValue) => {
@@ -60,7 +81,7 @@ export default function Home() {
         <Picker.Item label="Java" value="java" />
         <Picker.Item label="JavaScript" value="js" />
         <Picker.Item label="Python" value="python" />
-      </Picker>
+      </Picker> */}
         {/* <TouchableOpacity style={homeStyle.ButtonFilterStyle}>
           <Svg
             width="24"
@@ -78,19 +99,21 @@ export default function Home() {
           </Svg>
         </TouchableOpacity> */}
       </View>
-      <View style={homeStyle.ViewPagination}>
-        <TouchableOpacity style={{backgroundColor:"rgb(0, 132, 255)", padding:8, borderRadius:8}}>
-        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M6 8L2 12L6 16"/><Path d="M2 12H22"/></Svg>
-        </TouchableOpacity>
-        <Text style={{color:"gray",fontSize:12,fontWeight:"700"}}>Page 1 à 30</Text>
-        <TouchableOpacity  style={{backgroundColor:"rgb(0, 132, 255)", padding:8, borderRadius:8}}>
-        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M18 8L22 12L18 16"/><Path d="M2 12H22"/></Svg>
-        </TouchableOpacity>
-      </View>
+      
       <ScrollView style={homeStyle.ViewProduct}>
           {data.map((items)=>(
             <ProductItems name={items.nom} src={items.src} price={items.price} desc={items.desc} categories={items.categories} vendeur={items.vendeur} stock={items.stock} id={items.id} key={items.id} setViewState={setViewState}/>
           ))}
+
+          <View style={homeStyle.ViewPagination}>
+            <TouchableOpacity style={{backgroundColor:"white", padding:5, borderRadius:8}}>
+              <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M6 8L2 12L6 16"/><Path d="M2 12H22"/></Svg>
+              </TouchableOpacity>
+              <Text style={{color:"gray",fontSize:12,fontWeight:"700"}}>Page 1 à 30</Text>
+              <TouchableOpacity  style={{backgroundColor:"white", padding:5, borderRadius:8}}>
+              <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="gray" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M18 8L22 12L18 16"/><Path d="M2 12H22"/></Svg>
+            </TouchableOpacity>
+          </View>
         {/* <ProductItems/>
         <ProductItems/>
         <ProductItems/>
@@ -126,7 +149,7 @@ const homeStyle = StyleSheet.create({
   },
   InputSearchStyle: {
     height: 40,
-    width: "85%",
+    width: "50%",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "rgba(238, 238, 238, 0.7)",
@@ -137,8 +160,8 @@ const homeStyle = StyleSheet.create({
     backgroundColor: " rgb(247, 247, 247)",
   },
   ButtonFilterStyle: {
-    height: 40,
-    width: 40,
+    minHeight: 40,
+    width: "50%",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "rgba(238, 238, 238, 0.7)",
@@ -146,11 +169,12 @@ const homeStyle = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    paddingBottom: 10,
   },
   ViewFilterStyle: {
     display: "flex",
     flexDirection: "row",
-    gap: 10,
+    gap: 5,
     justifyContent: "space-between",
     marginTop: 10,
   },
@@ -167,6 +191,6 @@ const homeStyle = StyleSheet.create({
     width:"100%",
     justifyContent:"space-between",
     alignItems:"center",
-    marginTop:10,
+    marginVertical:10,
   }
 });
