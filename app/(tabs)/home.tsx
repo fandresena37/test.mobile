@@ -4,8 +4,10 @@ import { ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from "react
 import { Svg, Path } from "react-native-svg";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useColorScheme } from "@/components/useColorScheme";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProductItems from "../productComponent/productItems";
+import { Picker } from "@react-native-picker/picker";
+import data from "../../data/data.json";
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
@@ -14,6 +16,7 @@ function TabBarIcon(props: {
 }
 
 export default function Home() {
+  const [selectedValue,setSelectedValue] = useState<string>("")
   // useEffect(() => {
   //   router.replace("/authentification/connexion");
   // }, []);
@@ -47,7 +50,19 @@ export default function Home() {
           style={homeStyle.InputSearchStyle}
           placeholder="recherche ..."
         />
-        <TouchableOpacity style={homeStyle.ButtonFilterStyle}>
+        <Picker
+        selectedValue={selectedValue}
+        style={homeStyle.ButtonFilterStyle}
+        onValueChange={(itemValue) => {
+          console.log(itemValue)
+          setSelectedValue(itemValue)
+        }}
+      >
+        <Picker.Item label="Java" value="java" />
+        <Picker.Item label="JavaScript" value="js" />
+        <Picker.Item label="Python" value="python" />
+      </Picker>
+        {/* <TouchableOpacity style={homeStyle.ButtonFilterStyle}>
           <Svg
             width="24"
             height="24"
@@ -62,18 +77,25 @@ export default function Home() {
             <Path d="M7 12h10" />
             <Path d="M10 18h4" />
           </Svg>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View style={homeStyle.ViewPagination}>
-        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M6 8L2 12L6 16"/><Path d="M2 12H22"/></Svg>
-        <Text>Page 1 à 30</Text>
-        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M18 8L22 12L18 16"/><Path d="M2 12H22"/></Svg>
+        <TouchableOpacity style={{backgroundColor:"rgb(0, 132, 255)", padding:8, borderRadius:8}}>
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M6 8L2 12L6 16"/><Path d="M2 12H22"/></Svg>
+        </TouchableOpacity>
+        <Text style={{color:"gray",fontSize:12,fontWeight:"700"}}>Page 1 à 30</Text>
+        <TouchableOpacity  style={{backgroundColor:"rgb(0, 132, 255)", padding:8, borderRadius:8}}>
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M18 8L22 12L18 16"/><Path d="M2 12H22"/></Svg>
+        </TouchableOpacity>
       </View>
       <ScrollView style={homeStyle.ViewProduct}>
+          {data.map((items)=>(
+            <ProductItems name={items.nom} src={items.src} price={items.price} desc={items.desc} categories={items.categories} vendeur={items.vendeur} stock={items.stock} key={items.id}/>
+          ))}
+        {/* <ProductItems/>
         <ProductItems/>
         <ProductItems/>
-        <ProductItems/>
-        <ProductItems/>
+        <ProductItems/> */}
       </ScrollView>
     </View>
     </>
@@ -129,11 +151,11 @@ const homeStyle = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
     justifyContent: "space-between",
-    marginTop: 30,
+    marginTop: 10,
   },
   ViewProduct:{
     width:"100%",
-    marginTop:30,
+    marginTop:20,
     display:"flex",
     gap:20,
   },
@@ -143,6 +165,6 @@ const homeStyle = StyleSheet.create({
     width:"100%",
     justifyContent:"space-between",
     alignItems:"center",
-    marginTop:20,
+    marginTop:10,
   }
 });

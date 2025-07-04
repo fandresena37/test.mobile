@@ -2,21 +2,35 @@ import { View } from "@/components/Themed";
 import { Image, Text, TouchableOpacity } from "react-native";
 import {Svg,Path,Line,Circle} from 'react-native-svg'
 import { StyleSheet} from "react-native";
-export default function ProductItems(){
+import ViewItems from "./viewItems";
+import { useState } from "react";
+const imagePathRequire:{ [key: string]: any } = {
+    "12.jpeg": require("../../assets/images/12.jpeg"),
+    "486.jpg": require("../../assets/images/486.jpeg"),
+    "15.jpeg": require("../../assets/images/15.jpeg"),
+    "19.jpeg": require("../../assets/images/19.jpeg"),
+    "489.jpeg": require("../../assets/images/489.jpeg"),
+    "481.jpeg": require("../../assets/images/481.jpeg"),
+}
+export default function ProductItems({name,src,desc,price,stock,categories,vendeur}: {name:string,src:string,desc:string,price:number,stock:number,categories:string,vendeur:string}) {
+    const [viewState,setViewState] = useState<boolean>(false);
     return (
         <>
+            {viewState && <ViewItems name={name} src={src} desc={desc} price={price} stock={stock} categories={categories} vendeur={vendeur}/>}
             <View style={ProductStyle.container}>
-                <Image source={require('../../assets/images/chaussure.jpeg')} style={ProductStyle.imageStyle} resizeMode="cover"/>
-                <Text style={{color:"green",fontSize:20,fontWeight:"bold"}}>30 000 Ar</Text>
-                <Text style={{fontSize:12,color:"gray"}}>chaussure très classe</Text>
+                <Image source={imagePathRequire[src]} style={ProductStyle.imageStyle} resizeMode="cover"/>
+                <Text style={{color:"green",fontSize:20,fontWeight:"bold",marginTop:10}}>{price} Ar</Text>
+                <Text style={{fontSize:12,color:"gray",marginTop:10}}>{desc}</Text>
                 <View style={ProductStyle.ButtonContainerStyle}>
                     <TouchableOpacity style={ProductStyle.ButtonEditStyle}>
                         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><Path d="m15 5 4 4"/></Svg>
                     </TouchableOpacity>
-                    <TouchableOpacity style={ProductStyle.ButtonViewStyle}>
+                    <TouchableOpacity style={ProductStyle.ButtonViewStyle} onPress={() => {
+                        setViewState(true);
+                    }}>
                         <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><Circle cx="12" cy="12" r="3"/></Svg>
                     </TouchableOpacity>
-                    <TouchableOpacity style={ProductStyle.ButtonRemoveStyle}>
+                    <TouchableOpacity style={ProductStyle.ButtonRemoveStyle} >
                         <Svg  width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M3 6h18"/><Path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><Path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><Line x1="10" x2="10" y1="11" y2="17"/><Line x1="14" x2="14" y1="11" y2="17"/></Svg>
                     </TouchableOpacity>
                 </View>
@@ -28,13 +42,14 @@ export default function ProductItems(){
 const ProductStyle = StyleSheet.create({
     container:{
         width:"100%",
-        height:280,
+        height:"auto",
         borderRadius:10,
         padding:20,
         marginBottom:20,
     },
     imageStyle:{
         width:"100%",
+        borderRadius:10
     },
     ButtonContainerStyle:{
         display:"flex",

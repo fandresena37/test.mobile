@@ -1,0 +1,325 @@
+[
+    {
+        "id":"RBRESG",
+        "src":"481.jpeg",
+        "desc":"Raven Bee RB500 Exotic Style Guitar",
+        "price":450.00,
+        "description":"Cette guitare est destinée à ceux qui sont prêts à épater les autres et à se démarquer ! Le design unique de cette guitare sera visible de loin.",
+        "features":[
+            "Bois du corps : aulne",
+            "Longueur de l'échelle : 25,5",
+            "Disposition des commandes : 1 volume, 1 tonalité"
+        ]
+    },
+    {
+        "id":"DLRSD",
+        "src":"480.jpeg",
+        "desc":"Dowson Littke Roomer Snare Drum",
+        "price":178.00,
+        "description":"Cette caisse claire ressemble, sonne et joue comme une caisse claire ordinaire, elle est juste plus petite. Un ajustement parfait pour les petits espaces et les transports réguliers.",
+        "features":[
+            "Caisse claire 12\" en acajou",
+            "Coque 9 plis de 7,5 mm avec bord d'appui à double coupe à 45°",
+            " Equipé d'arceaux à triple bride et d'un lanceur pivotant"
+        ]
+    },
+    {
+        "id":"DSEEG",
+        "src":"484.jpeg",
+        "desc":"Dickson Studio ER100 Electrice Guitar",
+        "price":180.00,
+        "description":"Cette guitare a été introduite pour la première fois en 1985 et reste toujours l'une des guitares les plus appréciées de nos clients.",
+        "features":[
+            "Double pan coupé",
+            "Erable massif",
+            "Longueur de l'échelle : 25,5 pouces."
+        ]
+    },
+    {
+        "id":"GCSEG",
+        "src":"483.jpeg",
+        "desc":"GVC Cool Style Electric Guitar",
+        "price":640.00,
+        "description":"Cette guitare a été créée pour se souvenir de vos meilleurs moments sur les grandes scènes. Son corps accrocheur a une superbe finition métallique noire.",
+        "features":[
+            "Manche collé 3 pièces en érable avec profil Slim C",
+            "2 micros Epiphone ProBucke",
+            "Écrou de blocage R2 monté sur le dessus"
+        ]
+    },
+    {
+        "id":"BRESD",
+        "src":"482.jpeg",
+        "desc":"Bover Rover ERTSQ56 Snare Drum",
+        "price":128.00,
+        "description":"C'est la solution idéale pour les musiciens qui recherchent un tambour d'une fabrication exquise avec un son impressionnant. Ces caisses claires sont fabriquées à la main et c’est l’essentiel.",
+        "features":[
+            "Taille de la caisse claire : 14\" x 5-1/2\"",
+            "Bord d'appui : 45",
+            "Type de finition : satiné"
+        ]
+    },
+    {
+        "id":"EBSD",
+        "src":"12.jpeg",
+        "desc":"Ericson Black&White Snare Drum",
+        "price":115.00,
+        "description":"Ce tambour est fabriqué à partir d'essences de bois et de satin de haute qualité. Il procure un son massif et profond.",
+        "features":[
+            "Cosses en alliage aluminium/zinc",
+            "Couche extérieure en frêne avec couches intérieures en érable"
+        ]
+    },
+    {
+        "id":"JREG",
+        "src":"486.jpeg",
+        "desc":"Jackson RI405 Electric Guitar",
+        "price":300.00,
+        "description":"Le modèle RI405 est une guitare creuse à pan coupé unique avec une profondeur de corps de 1-1/2 po et un bout inférieur classique de 16 po. Cet instrument est présenté dans une couleur noire élégante dans notre magasin.",
+        "features":[
+            "Pan coupé simple",
+            "Corps creux",
+            "Longueur de l'échelle : 24,75 pouces."
+        ]
+    },
+    {
+        "id":"DSSAS",
+        "src":"15.jpeg",
+        "desc":"Donny Stavanger SRT12 Alto Saxophone",
+        "price":450.00,
+        "description":"Ce saxophone alto est le choix parfait pour ceux qui commencent tout juste à jouer de cet instrument. Chaque élément est constitué de métaux fins et rend la production de sons facile, cohérente et solide.",
+        "features":[
+            "Facile à jouer",
+            "Idéal pour les étudiants"
+        ]
+    },
+    {
+        "id":"JSJSRT",
+        "src":"19.jpeg",
+        "desc":"Jiwa Studio JWL100 Single Row Tambourine",
+        "price":50.00,
+        "description":"Jiwa propose des tambourins de qualité supérieure pour tous les niveaux musicaux, du débutant au professionnel. Ce tambourin a un son exceptionnel et un design simple.",
+        "features":[
+            "Jingles en maillechort",
+            "Tête en peau de chèvre"
+        ]
+    },
+    {
+        "id":"WWEG",
+        "src":"489.jpeg",
+        "desc":"Winston WR-100 Electric Guitar",
+        "price":320.00,
+        "description":"Cette guitare présente un design assez traditionnel et une taille facile à jouer. Cela peut être le premier instrument parfait pour le débutant.",
+        "features":[
+            "Manche 22 frettes en érable",
+            "Configuration micro H/H et sélecteur de micro 3 positions"
+        ]
+    },
+    {
+        "id":"DDTEG",
+        "src":"5.jpeg",
+        "desc":"Dean Doe TRO4506 Electric Guitar",
+        "price":220.00,
+        "description":"Une guitare lumineuse pour vos performances lumineuses. Il présente une conception à coupe unique, un érable de qualité et un son profond qui ne vous décevra pas.",
+        "features":[
+            "Pan coupé simple",
+            "Longueur de l'échelle : 24,75 pouces.",
+            "Nombre de frettes : 21"
+        ]
+    },
+    {
+        "id":"RCREG",
+        "src":"4.jpeg",
+        "desc":"Raven Classic RT45 Electric Guitar",
+        "price":300.00,
+        "description":"Cette guitare électrique a un design classique et est créée pour faciliter la jouabilité. Le manche en érable ultra fin facilite l'utilisation de la touche à 22 frettes.",
+        "features":[
+            "Longueur de l'échelle : 25-1/2\"",
+            "Largeur de l'écrou : 1,69\" (43 mm)",
+            "Commandes : Volume, Tonalité, sélecteur de micro à lame 5 positions"
+        ]
+    },
+    {
+        "id":"DVAG",
+        "src":"23.jpeg",
+        "desc":"Deanson VV02 Acoustic Guitar",
+        "price":112.00,
+        "description":"Cette jolie guitare classique a un son doux et articulé. Il est idéal pour tous les styles de musique, du fingerpicking au strumming robuste.",
+        "features":[
+            "Longueur d'échelle de 24 3/4\"",
+            "Table en épicéa",
+            "Touche et chevalet en palissandre",
+            "Sillet et selle en os synthétique"
+        ]
+    },
+    {
+        "id":"KMSSAG",
+        "src":"8.jpeg",
+        "desc":"Kuro Music Studio S-35 Acoustic Guitar",
+        "price":105.00,
+        "description":"Voici une superbe guitare acoustique avec un son fort et audacieux et d'excellentes fonctionnalités qui conviennent parfaitement à tout musicien à la recherche d'un instrument bien construit et facile à jouer.",
+        "features":[
+            "Dos et éclisses Agathis",
+            "Longueur d'échelle de 25-1/2\"",
+            "Sillet et selle en os synthétique",
+            "Profil de manche fin"
+        ]
+    },
+    {
+        "id":"RRAEG",
+        "src":"9.jpeg",
+        "desc":"Raven RT1 Acoustic-Electric Guitar",
+        "price":110.00,
+        "description":"Cet instrument abordable est une excellente guitare d'entrée de gamme de 25,4 pouces. Il possède un manche en forme de C nato, un pont ventral simulé et une touche en palissandre simulée.",
+        "features":[
+            "Largeur de l'écrou : 1,69\" (43 mm)",
+            "Nombre de frettes : 20",
+            "Micro/préampli : oui",
+            "EQ préampli : 3 bandes"
+        ]
+    },
+    {
+        "id":"FRAG",
+        "src":"10.jpeg",
+        "desc":"Fogue RA-090 Acoustic Guitar",
+        "price":110.00,
+        "description":"Cette guitare est un instrument parfait pour le débutant. La profondeur et la largeur du corps vous donnent un ton équilibré. La guitare est simple et classe, rien de plus.",
+        "features":[
+            "6 cordes",
+            "Longueur d'échelle de 25-3/8\"",
+            "Manche en forme de C",
+            "20 frettes (14 ouvertes)",
+            "Largeur d'écrou de 1-2/3\"",
+            "Rayon de 16\""
+        ]
+    },
+    {
+        "id":"BBUSD",
+        "src":"11.jpeg",
+        "desc":"BlueWater BWL1000 Ultimate Snare Drum",
+        "price":145.00,
+        "description":"Ce modèle petit mais accrocheur offre aux batteurs modernes une voix de caisse claire alternative et pointue. L'instrument conviendra aussi bien aux professionnels qu'aux débutants.",
+        "features":[
+            "13\" x 4-1/2\"",
+            "Super son",
+            "Compact et à petit budget"
+        ]
+    },
+    {
+        "id":"EWCSD",
+        "src":"13.jpeg",
+        "desc":"Ericson White Crystal Snare Drum",
+        "price":115.00,
+        "description":"Cette caisse claire finie à la main offre un son plat et massif avec une résonance maximale. Le tambour a un look personnalisé et une finition satinée.",
+        "features":[
+            "Cosses en alliage aluminium/zinc",
+            "Couche extérieure en frêne avec couches intérieures en érable"
+        ]
+    },
+    {
+        "id":"EBWSD",
+        "src":"14.jpeg",
+        "desc":"Ericson Beech Wood Snare Drum",
+        "price":115.00,
+        "description":"Ces tambours sont créés de toutes pièces, en utilisant du bois de hêtre européen. Comme tous les autres tambours de ce fabricant, aucune des pièces de ces caisses claires n'est jamais achetée auprès d'autres sociétés.",
+        "features":[
+            "Fût en hêtre 10 plis, conçu et découpé de toutes pièces avec chant d'appui à 45°",
+            "Le matériel comprend 10 pattes classiques et des cerceaux à triple bride de 2,3 mm"
+        ]
+    },
+    {
+        "id":"SSPV",
+        "src":"16.jpeg",
+        "desc":"Simona SR-V Professional Violin",
+        "price":700.00,
+        "description":"N’importe quel violoniste aimerait jouer un violon aussi beau et aussi beau. Le violon Simona SR-V est un excellent choix pour les solistes professionnels.",
+        "features":[
+            "Table : épicéa massif premium",
+            "Cordes : Arney Freton VNS-150 Perlon",
+            "Tailles : 4/4"
+        ]
+    },
+    {
+        "id":"ABPBH",
+        "src":"17.jpeg",
+        "desc":"AER B-Flat Professional Bass Horn",
+        "price":300.00,
+        "description":"Ce pavillon de basse professionnel est de type rotatif pour un son profond. Dans le même temps, la précision de l'accordage et la facilité de jeu sont préservées grâce à des solutions techniques modernes. Le corps en alliage traditionnel confère à cet instrument un timbre chaleureux et vibrant.",
+        "features":[
+            "Diamètre évasé 16 1/2\"",
+            "Mensuration 0,815\""
+        ]
+    },
+    {
+        "id":"MPMO",
+        "src":"18.jpeg",
+        "desc":"Muratti Professional MB Oboe",
+        "price":900.00,
+        "description":"Ce hautbois a été créé spécialement pour les concerts professionnels. Ce modèle est très direct et répond immédiatement au moindre changement de votre inflexion et de votre air.",
+        "features":[
+            "Clés et poteaux platinés",
+            "Système de véranda",
+            "Anneau double tenon"
+        ]
+    },
+    {
+        "id":"KKBDIG",
+        "src":"20.jpeg",
+        "desc":"Kurumba KK400 Bongo Drum in Green",
+        "price":89.00,
+        "description":"Il s'agit d'un instrument de percussion cubain, un petit tambour dont on joue généralement en tenant le bongo entre les mollets.",
+        "features":[
+            "Taille de la tête : 7 pouces",
+            "Conception folklorique",
+            "Finition brillante naturelle"
+        ]
+    },
+    {
+        "id":"BAAIG",
+        "src":"21.jpeg",
+        "desc":"Bosner AT1 Accordion in Gold",
+        "price":160.00,
+        "description":"Un accordéon magnifique et fiable d'un fabricant bien connu pour ceux qui jouent professionnellement de cet instrument de musique.",
+        "features":[
+            "72 basses ; Corps doré avec 34 touches",
+            "Gamme G-E",
+            "2 jeux d'anches"
+        ]
+    },
+    {
+        "id":"HSSEH",
+        "src":"22.jpeg",
+        "desc":"Hohner Silver Star ERX3 Harmonica",
+        "price":67.00,
+        "description":"L'un des harmonicas les plus célèbres parmi les musiciens professionnels et débutants. Simple et fiable",
+        "features":[
+            "Matériau du corps : Résine",
+            "Méthode de prononciation : Diatonique",
+            "Nombre d'alésages : 10"
+        ]
+    },
+    {
+        "id":"DDAG",
+        "src":"7.jpeg",
+        "desc":"Dowson DDR100 Acoustic Guitar",
+        "price":180.00,
+        "description":"Véritable atout pour son prix, ce modèle de guitare acoustique est l'un des plus appréciés de notre magasin aussi bien auprès des musiciens débutants que professionnels.",
+        "features":[
+            "Table en épicéa",
+            "Longueur d'échelle de 25-1/2\"",
+            "Manche Nato"
+        ]
+    },
+    {
+        "id":"LLSSV",
+        "src":"1.jpeg",
+        "desc":"Lewis Lewel ST-1 Student Violin",
+        "price":200.00,
+        "description":"Vous voulez apprendre à jouer du violon ? Cet instrument est parfait pour vos besoins. Il est simple, fabriqué en bois naturel robuste et vous permettra de bénéficier d'un son vraiment cohérent.",
+        "features":[
+            "Table : épicéa laminé",
+            "Cordier : Composite avec 4 accordeurs fins",
+            "Cordes : âme en acier"
+        ]
+    }
+]
