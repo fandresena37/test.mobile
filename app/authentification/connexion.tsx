@@ -1,43 +1,104 @@
 import { View } from "@/components/Themed";
-import { StyleSheet, TouchableOpacity, Text, TextInput } from "react-native";
+import {router} from "expo-router";
+import { useState } from "react";
+import { StyleSheet, TouchableOpacity, Text, TextInput, KeyboardAvoidingView, TouchableWithoutFeedback, Keyboard, ScrollView } from "react-native";
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+export default function Connexion() {
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorEmail, setErrorEmail] = useState<{state:boolean,message:string}>({
+    state: false,
+    message: "",});
+  const [errorUsername, setErrorUsername] = useState<{state:boolean,message:string}>({state: false,
+    message: "",});
+  const [errorPassword, setErrorPassword] = useState<{state:boolean,message:string}>({state: false,
+    message: "",});
+  const [isLoading, setIsLoading] = useState(false);
+  const handleChangeEmail = (text:string) => {
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export default function Connexion({ navigation }) {
+    if (text.trim() === '') {
+      setErrorEmail({state:false,message:'veulliez remplir le champ'});
+    } else if (!regexEmail.test(text)) {
+      setErrorEmail({state:false,message:'Email invalide.'});
+    } else {
+      setErrorEmail({state:true,message:'Valide'});
+      // Tu peux ici envoyer les données
+    }
+  }
+  const handleChangeUsername = (text:string) => {
+    if (text.trim() === '') {
+      setErrorUsername({state:false,message:'veulliez remplir le champ'});
+    } else if (text.length < 3) {
+      setErrorUsername({state:false,message:'3 caractères minimum.'});
+    } else {
+      setErrorUsername({state:true,message:'Valide'});
+      // Tu peux ici envoyer les données
+    }
+  }
+  const handleChangePassword = (text:string) => {
+    if (text.trim() === '') {
+      setErrorPassword({state:false,message:'veulliez remplir le champ'});
+    } else if (text.length < 3) {
+      setErrorPassword({state:false,message:'8 caractères minimum.'});
+    } else {
+      setErrorUsername({state:true,message:'Valide'});
+      // Tu peux ici envoyer les données
+    }
+  }
+
+
   return (
     <>
-      <View style={connexionStyle.container}>
-        <View style={connexionStyle.containerStyle}></View>
+    <KeyboardAwareScrollView
+  contentContainerStyle={connexionStyle.container}
+  keyboardShouldPersistTaps="handled"
+    >
+  <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    {/* <View style={connexionStyle.container}> */}
         <View style={connexionStyle.containerForm}>
           <Text style={connexionStyle.TextConnexion}>Connexion</Text>
           <Text style={connexionStyle.TextConnexionDesc}>
             se connecter avec votre compte
           </Text>
-          <View>
+          <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Email</Text>
+            <Text style={!errorEmail.state?connexionStyle.InputLabelErrorStyle:connexionStyle.InputLabelValideStyle}>{errorEmail.message}</Text>
           </View>
           <TextInput
             style={connexionStyle.InputStyle}
             placeholder="test@gmail.com"
             placeholderTextColor="gray"
+            onChange={(e) => handleChangeEmail(e.nativeEvent.text)}
           />
-          <View>
+          <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Nom d'utilisateur</Text>
+            <Text style={!errorUsername.state?connexionStyle.InputLabelErrorStyle:connexionStyle.InputLabelValideStyle}>{errorUsername.message}</Text>
           </View>
           <TextInput
             style={connexionStyle.InputStyle}
             placeholder="nom d'utilisateur"
             placeholderTextColor="gray"
+            onChange={(e) => handleChangeUsername(e.nativeEvent.text)}
           />
-          <View>
+          <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Mot de passe</Text>
+            <Text style={!errorPassword.state?connexionStyle.InputLabelErrorStyle:connexionStyle.InputLabelValideStyle}>{errorPassword.message}</Text>
           </View>
           <TextInput
             style={connexionStyle.InputStyle}
             placeholder="mot de passe"
             placeholderTextColor="gray"
+            onChange={(e) => handleChangePassword(e.nativeEvent.text)}
+            secureTextEntry={true}
           />
           <TouchableOpacity
             style={connexionStyle.ButtonStyle}
-            onPress={() => navigation.navigate("home")}
+            onPress={() => {
+              console.log("ato")
+              router.replace("/(tabs)/home")
+            }}
           >
             <Text style={connexionStyle.TextButtonStyle}>se connecter</Text>
           </TouchableOpacity>
@@ -47,34 +108,33 @@ export default function Connexion({ navigation }) {
             </Text>
             <TouchableOpacity
               style={{ display: "flex", alignItems: "center" }}
-              onPress={() => navigation.navigate("inscription")}
+              onPress={() => router.push("/authentification/inscription")}
             >
               <Text style={connexionStyle.TextLinkStyle}>s'inscrire</Text>
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+        {/* </View> */}
+      </TouchableWithoutFeedback>
+    </KeyboardAwareScrollView>
     </>
   );
 }
 
 const connexionStyle = StyleSheet.create({
+  // scrollContainer: {
+  //   flexGrow: 1,
+  //   backgroundColor: "rgb(0, 17, 255)",
+  //   justifyContent: "center",
+  // },
   container: {
     width: "100%",
     height: "100%",
-    position: "relative",
-    backgroundColor: "rgba(241, 241, 241, 0.973)",
+    backgroundColor: "rgb(0, 132, 255)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-  },
-  containerStyle: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    width: "100%",
-    height: "50%",
-    backgroundColor: "rgb(0, 17, 255)",
+    flexGrow:1,
   },
   containerForm: {
     width: "90%",
@@ -97,11 +157,22 @@ const connexionStyle = StyleSheet.create({
     paddingRight: 10,
     fontWeight: "medium",
   },
+  InputErrorStyle:{
+    width: "100%",
+    height: 35,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "red",
+    fontSize: 12,
+    paddingLeft: 10,
+    paddingRight: 10,
+    fontWeight: "medium",
+  },
   ButtonStyle: {
     width: "100%",
     height: 35,
     borderRadius: 8,
-    backgroundColor: "rgb(0, 17, 255)",
+    backgroundColor: "rgb(0, 132, 255)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -124,14 +195,14 @@ const connexionStyle = StyleSheet.create({
     paddingTop: 6,
   },
   TextLinkStyle: {
-    color: "rgb(0, 17, 255)",
+    color: "rgb(0, 132, 255)",
     fontWeight: "medium",
     fontSize: 12,
   },
   TextConnexion: {
     textAlign: "center",
     fontSize: 20,
-    color: "rgb(0, 17, 255)",
+    color: "rgb(0, 132, 255)",
     fontWeight: "bold",
   },
   TextConnexionDesc: {
@@ -140,4 +211,19 @@ const connexionStyle = StyleSheet.create({
     color: "gray",
     fontWeight: "500",
   },
+  InputLabelErrorStyle:{
+    fontSize:11,
+    color:"red",
+    fontWeight:"bold",
+  },
+  InputLabelValideStyle:{
+    fontSize:11,
+    color:"green",
+    fontWeight:"bold",
+  },
+  ViewLabelStyle:{
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  }
 });

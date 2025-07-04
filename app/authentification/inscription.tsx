@@ -1,11 +1,12 @@
 import { View } from "@/components/Themed";
+import {router} from "expo-router";
 import { StyleSheet, TouchableOpacity, Text, TextInput } from "react-native";
 
-export default function Inscription({ navigation }) {
+export default function Inscription() {
   return (
     <>
       <View style={inscriptionStyle.container}>
-        <View style={inscriptionStyle.containerStyle}></View>
+        {/* <View style={inscriptionStyle.containerStyle}></View> */}
         <View style={inscriptionStyle.containerForm}>
           <View>
             <Text style={inscriptionStyle.TextInscription}>Inscription</Text>
@@ -58,7 +59,7 @@ export default function Inscription({ navigation }) {
             </Text>
             <TouchableOpacity
               style={{ display: "flex", alignItems: "center" }}
-              onPress={() => navigation.navigate("connexion")}
+              onPress={() => router.push("/authentification/connexion")}
             >
               <Text style={inscriptionStyle.TextLinkStyle}>se connecter</Text>
             </TouchableOpacity>
@@ -74,7 +75,7 @@ const inscriptionStyle = StyleSheet.create({
     width: "100%",
     height: "100%",
     position: "relative",
-    backgroundColor: "rgba(241, 241, 241, 0.973)",
+    backgroundColor: "rgb(0, 132, 255)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -85,7 +86,7 @@ const inscriptionStyle = StyleSheet.create({
     left: 0,
     width: "100%",
     height: "50%",
-    backgroundColor: "rgb(0, 17, 255)",
+    backgroundColor: "rgb(0, 132, 255)",
   },
   containerForm: {
     width: "90%",
@@ -111,7 +112,7 @@ const inscriptionStyle = StyleSheet.create({
     width: "100%",
     height: 35,
     borderRadius: 8,
-    backgroundColor: "rgb(0, 17, 255)",
+    backgroundColor: "rgb(0, 132, 255)",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
@@ -134,14 +135,14 @@ const inscriptionStyle = StyleSheet.create({
     paddingTop: 6,
   },
   TextLinkStyle: {
-    color: "rgb(0, 17, 255)",
+    color: "rgb(0, 132, 255)",
     fontWeight: "medium",
     fontSize: 12,
   },
   TextInscription: {
     textAlign: "center",
     fontSize: 20,
-    color: "rgb(0, 17, 255)",
+    color: "rgb(0, 132, 255)",
     fontWeight: "bold",
   },
   TextInscriptionDesc: {

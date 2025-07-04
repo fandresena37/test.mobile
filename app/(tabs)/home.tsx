@@ -1,18 +1,33 @@
 import { Text } from "@/components/Themed";
-import { StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
+import { ScrollView, StyleSheet, TextInput, TouchableOpacity, View } from "react-native";
 // import { Layers } from "lucide-react";
 import { Svg, Path } from "react-native-svg";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { useColorScheme } from "@/components/useColorScheme";
+import { useEffect } from "react";
+import ProductItems from "../productComponent/productItems";
+function TabBarIcon(props: {
+  name: React.ComponentProps<typeof FontAwesome>["name"];
+  color: string;
+}) {
+  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+}
+
 export default function Home() {
-  return (
+  // useEffect(() => {
+  //   router.replace("/authentification/connexion");
+  // }, []);
+  
+    const colorScheme = useColorScheme();
+    return(
+    <>
     <View style={homeStyle.container}>
       <View style={homeStyle.headerStyle}>
         <View>
           <Text style={homeStyle.headerTitleStyle}>Produits</Text>
           <Text style={homeStyle.headerDescStyle}>54 produits au total</Text>
         </View>
-        {/* <Layers /> */}
         <Svg
-          //   xmlns="http://www.w3.org/2000/svg"
           width="24"
           height="24"
           viewBox="0 0 24 24"
@@ -21,7 +36,6 @@ export default function Home() {
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
-          //   class="lucide lucide-layers-icon lucide-layers"
         >
           <Path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z" />
           <Path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12" />
@@ -50,7 +64,19 @@ export default function Home() {
           </Svg>
         </TouchableOpacity>
       </View>
+      <View style={homeStyle.ViewPagination}>
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M6 8L2 12L6 16"/><Path d="M2 12H22"/></Svg>
+        <Text>Page 1 à 30</Text>
+        <Svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><Path d="M18 8L22 12L18 16"/><Path d="M2 12H22"/></Svg>
+      </View>
+      <ScrollView style={homeStyle.ViewProduct}>
+        <ProductItems/>
+        <ProductItems/>
+        <ProductItems/>
+        <ProductItems/>
+      </ScrollView>
     </View>
+    </>
   );
 }
 
@@ -58,7 +84,7 @@ const homeStyle = StyleSheet.create({
   container: {
     paddingLeft: 20,
     paddingRight: 20,
-    backgroundColor: "white",
+    backgroundColor: "rgb(243, 243, 243)",
     height: "100%",
   },
   headerStyle: {
@@ -105,4 +131,18 @@ const homeStyle = StyleSheet.create({
     justifyContent: "space-between",
     marginTop: 30,
   },
+  ViewProduct:{
+    width:"100%",
+    marginTop:30,
+    display:"flex",
+    gap:20,
+  },
+  ViewPagination:{
+    display:"flex",
+    flexDirection:"row",
+    width:"100%",
+    justifyContent:"space-between",
+    alignItems:"center",
+    marginTop:20,
+  }
 });

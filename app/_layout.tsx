@@ -11,7 +11,12 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/components/useColorScheme";
-
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import Connexion from "./authentification/connexion";
+import Inscription from "./authentification/inscription";
+// import { createNativeStackNavigator } from "@react-navigation/native-stack";
+// import Home from "./(tabs)/Accueil/home";
+// const Stack = createNativeStackNavigator();
 export {
   // Catch any errors thrown by the Layout component.
   ErrorBoundary,
@@ -53,10 +58,13 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack screenOptions={{ headerShown: false }}>
-        {/* <Stack.Screen name="modal" options={{ presentation: "modal" }} /> */}
-      </Stack>
-    </ThemeProvider>
+    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+    <SafeAreaProvider>
+        <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
+        <Stack screenOptions={{ headerShown: false }}>
+        </Stack>
+        </SafeAreaView>
+      </SafeAreaProvider>
+    // </ThemeProvider>
   );
 }
