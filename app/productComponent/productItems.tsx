@@ -7,6 +7,8 @@ import { useState } from "react";
 import { dataType } from "@/type/data";
 import { useAllData } from "@/context/dataContext";
 import { imagePathRequire } from "@/data/data";
+import ModalConfirmation from "./modalConfirmation";
+import EditProduct from "./editProduct";
 export default function ProductItems({
   id,
   nom,
@@ -30,6 +32,8 @@ export default function ProductItems({
     React.SetStateAction<{ state: boolean; data: dataType } | undefined>
   >;
 }) {
+  const [isConfirmDelete, setIsConfirmDelete] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
   const { allData, setAllData } = useAllData();
   const handleDeleteData = () => {
     const newData = allData.filter((item) => item.id !== id);
@@ -37,6 +41,19 @@ export default function ProductItems({
   };
   return (
     <>
+      {isConfirmDelete && (
+        <ModalConfirmation
+          id={id}
+          handleNo={() => {
+            setIsConfirmDelete(false);
+          }}
+          handleYes={() => {
+            handleDeleteData();
+            setIsConfirmDelete(false);
+          }}
+        />
+      )}
+      {isEdit && <EditProduct id={id} setIsEdit={setIsEdit} />}
       <View style={ProductStyle.container}>
         <Image source={imagePathRequire[src]} style={ProductStyle.imageStyle} />
         <View
@@ -71,7 +88,10 @@ export default function ProductItems({
           {desc}
         </Text>
         <View style={ProductStyle.ButtonContainerStyle}>
-          <TouchableOpacity style={ProductStyle.ButtonEditStyle}>
+          <TouchableOpacity
+            style={ProductStyle.ButtonEditStyle}
+            onPress={() => setIsEdit(true)}
+          >
             <Svg
               width="24"
               height="24"
@@ -120,7 +140,7 @@ export default function ProductItems({
           </TouchableOpacity>
           <TouchableOpacity
             style={ProductStyle.ButtonRemoveStyle}
-            onPress={() => handleDeleteData()}
+            onPress={() => setIsConfirmDelete(true)}
           >
             <Svg
               width="24"

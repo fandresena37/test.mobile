@@ -1,6 +1,7 @@
 import { View } from "@/components/Themed";
 import { imagePathRequire } from "@/data/data";
 import { dataType } from "@/type/data";
+import { useEffect, useState } from "react";
 import {
   Image,
   Modal,
@@ -10,30 +11,74 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Svg, Path, Line } from "react-native-svg";
+import ModalConfirmation from "./modalConfirmation";
+import { useAllData } from "@/context/dataContext";
+import EditProduct from "./editProduct";
 export default function ViewItems({
-  nom,
-  src,
-  desc,
-  price,
-  stock,
-  categories,
-  vendeur,
+  id,
   setViewState,
 }: {
-  nom: string;
-  src: string;
-  desc: string;
-  price: number;
-  stock: number;
-  categories: string;
-  vendeur: string;
+  id: number;
   setViewState: React.Dispatch<
     React.SetStateAction<{ state: boolean; data: dataType } | undefined>
   >;
 }) {
+  const [isConfirm, setIsConfirm] = useState(false);
+  const [nameProduct, setNameProduct] = useState("");
+  const [price, setPrice] = useState<number | null>(null);
+  const [stock, setStock] = useState<number | null>(null);
+  const [categories, setCategories] = useState("Autre");
+  const [vendeur, setVendeur] = useState("");
+  const [description, setDescription] = useState("");
+  const [imageSrc, setImageSrc] = useState("");
+  const { allData, setAllData } = useAllData();
+  const handleDeleteData = () => {
+    const newData = allData.filter((item) => item.id !== id);
+    setAllData(newData);
+  };
+  const [isEdit, setIsEdit] = useState(false);
+  useEffect(() => {
+    const data = allData.find((items) => items.id == id);
+    setNameProduct(data ? data.nom : "");
+    setCategories(data ? data.categories : "");
+    setDescription(data ? data.desc : "");
+    setPrice(data ? data.price : 0);
+    setStock(data ? data.stock : 0);
+    setVendeur(data ? data.vendeur : "");
+    setImageSrc(data ? data.src : "");
+  }, [allData]);
   return (
     <>
-      <Modal style={{ width: "100%", height: "100%" }}>
+      {isEdit && <EditProduct id={id} setIsEdit={setIsEdit} />}
+      {isConfirm && (
+        <ModalConfirmation
+          id={id}
+          handleNo={() => setIsConfirm(false)}
+          handleYes={() => {
+            handleDeleteData();
+            setIsConfirm(false);
+            setViewState({
+              state: false,
+              data: {
+                id: 0,
+                nom: "",
+                src: "",
+                desc: "",
+                price: 0,
+                stock: 0,
+                categories: "",
+                vendeur: "",
+              },
+            });
+          }}
+        />
+      )}
+      <Modal
+        style={{ width: "100%", height: "100%" }}
+        transparent={true}
+        animationType="fade"
+        visible={true}
+      >
         <ScrollView
           contentContainerStyle={ViewItemsStyle.container}
           keyboardShouldPersistTaps="handled"
@@ -105,7 +150,7 @@ export default function ViewItems({
               }}
             >
               <Image
-                source={imagePathRequire[src]}
+                source={imagePathRequire[imageSrc]}
                 style={{ width: "90%", height: 200, borderRadius: 10 }}
               />
             </View>
@@ -125,7 +170,9 @@ export default function ViewItems({
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontSize: 24, fontWeight: "700" }}>{nom}</Text>
+                <Text style={{ fontSize: 24, fontWeight: "700" }}>
+                  {nameProduct}
+                </Text>
                 <Text
                   style={{ color: "green", fontWeight: "bold", fontSize: 20 }}
                 >
@@ -141,7 +188,7 @@ export default function ViewItems({
                 numberOfLines={1}
                 ellipsizeMode="tail"
               >
-                {desc}
+                {description}
               </Text>
               <View
                 style={{
@@ -163,7 +210,12 @@ export default function ViewItems({
               </View>
             </View>
             <View style={ViewItemsStyle.ButtonContainerStyle}>
-              <TouchableOpacity style={ViewItemsStyle.ButtonEditStyle}>
+              <TouchableOpacity
+                style={ViewItemsStyle.ButtonEditStyle}
+                onPress={() => {
+                  setIsEdit(true);
+                }}
+              >
                 <Svg
                   width="24"
                   height="24"
@@ -178,7 +230,10 @@ export default function ViewItems({
                   <Path d="m15 5 4 4" />
                 </Svg>
               </TouchableOpacity>
-              <TouchableOpacity style={ViewItemsStyle.ButtonRemoveStyle}>
+              <TouchableOpacity
+                style={ViewItemsStyle.ButtonRemoveStyle}
+                onPress={() => setIsConfirm(true)}
+              >
                 <Svg
                   width="24"
                   height="24"
