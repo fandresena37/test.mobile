@@ -17,7 +17,9 @@ fonctionnalité
 quelque remarque
  - les produits ajoutés ne contient pas d'image je n'ai pas pu ajouter la fonctionnatilé de Upload et prevision d'image
  - la fonctionnalité pagination et filtre n'a pas été inclue aussi
- - Hors les produits par defaut contient des images
+ - la fonctionnalité filtre est visible mais il ne fonctionne pas
+ - hors les produits par defaut contient des images
+ - les données ajouter ne sont pas totalement sauvegardées, ils reviennent à l'etat par defaut à chaque lancement de l'application
 
 voici l'utilisateur par default
  - Email:fandresenarazafindratina@gmail.com
