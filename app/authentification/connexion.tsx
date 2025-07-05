@@ -1,19 +1,20 @@
 import { View } from "@/components/Themed";
 import { router } from "expo-router";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as FileSystem from "expo-file-system";
 import {
   StyleSheet,
   TouchableOpacity,
   Text,
   TextInput,
   KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  ScrollView,
   Platform,
 } from "react-native";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import ModalError from "./modalError";
+import { useAllUser } from "@/context/userContext";
 export default function Connexion() {
+  const { allUser } = useAllUser();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -21,18 +22,21 @@ export default function Connexion() {
     state: boolean;
     message: string;
   }>({
-    state: false,
+    state: true,
     message: "",
   });
   const [errorUsername, setErrorUsername] = useState<{
     state: boolean;
     message: string;
-  }>({ state: false, message: "" });
+  }>({ state: true, message: "" });
   const [errorPassword, setErrorPassword] = useState<{
     state: boolean;
     message: string;
-  }>({ state: false, message: "" });
-  const [isLoading, setIsLoading] = useState(false);
+  }>({ state: true, message: "" });
+  const [isError, setIsError] = useState<{ state: boolean; message: string }>({
+    state: false,
+    message: "",
+  });
   const handleChangeEmail = (text: string) => {
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -42,7 +46,6 @@ export default function Connexion() {
       setErrorEmail({ state: false, message: "Email invalide." });
     } else {
       setErrorEmail({ state: true, message: "Valide" });
-      // Tu peux ici envoyer les données
     }
   };
   const handleChangeUsername = (text: string) => {
@@ -52,27 +55,67 @@ export default function Connexion() {
       setErrorUsername({ state: false, message: "3 caractères minimum." });
     } else {
       setErrorUsername({ state: true, message: "Valide" });
-      // Tu peux ici envoyer les données
     }
   };
   const handleChangePassword = (text: string) => {
     if (text.trim() === "") {
       setErrorPassword({ state: false, message: "veulliez remplir le champ" });
-    } else if (text.length < 3) {
+    } else if (text.length < 8) {
       setErrorPassword({ state: false, message: "8 caractères minimum." });
     } else {
-      setErrorUsername({ state: true, message: "Valide" });
-      // Tu peux ici envoyer les données
+      setErrorPassword({ state: true, message: "Valide" });
     }
   };
 
+  const handleConnexion = async () => {
+    if (!errorEmail.state || !errorUsername.state || !errorPassword.state) {
+      setIsError({
+        state: true,
+        message: "information saisi invalide",
+      });
+      return;
+    } else if (
+      email.trim() === "" ||
+      username.trim() === "" ||
+      password.trim() === ""
+    ) {
+      setIsError({ state: true, message: "veuillez remplir tous les champs" });
+      return;
+    }
+    const user = allUser.find(
+      (user) =>
+        user.email === email &&
+        user.username === username &&
+        user.password === password
+    );
+    console.log(allUser);
+    if (user) {
+      try {
+        await AsyncStorage.setItem("userData", JSON.stringify(user));
+        router.replace("/(tabs)/home");
+      } catch (error) {
+        console.log("Erreur de sauvegarde", error);
+      }
+    } else {
+      setIsError({
+        state: true,
+        message: "nom d'utilisateur ou mot de passe incorrect",
+      });
+    }
+  };
   return (
     <>
+      {isError.state && (
+        <ModalError
+          message={isError.message}
+          setIsError={setIsError}
+          title="Erreur d'authentification"
+        />
+      )}
       <KeyboardAvoidingView
         style={connexionStyle.container}
         behavior={Platform.OS == "ios" ? "padding" : "height"}
       >
-        {/* <View style={connexionStyle.container}> */}
         <View style={connexionStyle.containerForm}>
           <Text style={connexionStyle.TextConnexion}>Connexion</Text>
           <Text style={connexionStyle.TextConnexionDesc}>
@@ -95,6 +138,10 @@ export default function Connexion() {
             placeholder="test@gmail.com"
             placeholderTextColor="gray"
             onChange={(e) => handleChangeEmail(e.nativeEvent.text)}
+            onChangeText={(e) => setEmail(e)}
+            keyboardType="email-address"
+            autoCapitalize="none"
+            editable={true}
           />
           <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Nom d'utilisateur</Text>
@@ -113,6 +160,8 @@ export default function Connexion() {
             placeholder="nom d'utilisateur"
             placeholderTextColor="gray"
             onChange={(e) => handleChangeUsername(e.nativeEvent.text)}
+            onChangeText={(e) => setUsername(e)}
+            autoCapitalize="none"
           />
           <View style={connexionStyle.ViewLabelStyle}>
             <Text style={connexionStyle.TextLabelStyle}>Mot de passe</Text>
@@ -132,12 +181,13 @@ export default function Connexion() {
             placeholderTextColor="gray"
             onChange={(e) => handleChangePassword(e.nativeEvent.text)}
             secureTextEntry={true}
+            onChangeText={(e) => setPassword(e)}
+            autoCapitalize="none"
           />
           <TouchableOpacity
             style={connexionStyle.ButtonStyle}
             onPress={() => {
-              console.log("ato");
-              router.replace("/(tabs)/home");
+              handleConnexion();
             }}
           >
             <Text style={connexionStyle.TextButtonStyle}>se connecter</Text>
@@ -154,18 +204,12 @@ export default function Connexion() {
             </TouchableOpacity>
           </View>
         </View>
-        {/* </View> */}
       </KeyboardAvoidingView>
     </>
   );
 }
 
 const connexionStyle = StyleSheet.create({
-  // scrollContainer: {
-  //   flexGrow: 1,
-  //   backgroundColor: "rgb(0, 17, 255)",
-  //   justifyContent: "center",
-  // },
   container: {
     width: "100%",
     height: "100%",

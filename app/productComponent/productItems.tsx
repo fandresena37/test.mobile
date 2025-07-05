@@ -5,17 +5,11 @@ import { StyleSheet } from "react-native";
 import ViewItems from "./viewItems";
 import { useState } from "react";
 import { dataType } from "@/type/data";
-const imagePathRequire: { [key: string]: any } = {
-  "12.jpeg": require("../../assets/images/12.jpeg"),
-  "486.jpg": require("../../assets/images/486.jpeg"),
-  "15.jpeg": require("../../assets/images/15.jpeg"),
-  "19.jpeg": require("../../assets/images/19.jpeg"),
-  "489.jpeg": require("../../assets/images/489.jpeg"),
-  "481.jpeg": require("../../assets/images/481.jpeg"),
-};
+import { useAllData } from "@/context/dataContext";
+import { imagePathRequire } from "@/data/data";
 export default function ProductItems({
   id,
-  name,
+  nom,
   src,
   desc,
   price,
@@ -24,8 +18,8 @@ export default function ProductItems({
   vendeur,
   setViewState,
 }: {
-  id: string;
-  name: string;
+  id: number;
+  nom: string;
   src: string;
   desc: string;
   price: number;
@@ -36,21 +30,44 @@ export default function ProductItems({
     React.SetStateAction<{ state: boolean; data: dataType } | undefined>
   >;
 }) {
+  const { allData, setAllData } = useAllData();
+  const handleDeleteData = () => {
+    const newData = allData.filter((item) => item.id !== id);
+    setAllData(newData);
+  };
   return (
     <>
       <View style={ProductStyle.container}>
         <Image source={imagePathRequire[src]} style={ProductStyle.imageStyle} />
-        <Text
+        <View
           style={{
-            color: "green",
-            fontSize: 20,
-            fontWeight: "bold",
-            marginTop: 10,
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
           }}
         >
-          {price} Ar
-        </Text>
-        <Text style={{ fontSize: 12, color: "gray", marginTop: 10 }}>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>{nom}</Text>
+          <Text
+            style={{
+              color: "green",
+              fontSize: 20,
+              fontWeight: "bold",
+              marginTop: 10,
+            }}
+          >
+            {price} Ar
+          </Text>
+        </View>
+        <Text
+          style={{
+            fontSize: 12,
+            color: "gray",
+            marginTop: 10,
+          }}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {desc}
         </Text>
         <View style={ProductStyle.ButtonContainerStyle}>
@@ -72,12 +89,11 @@ export default function ProductItems({
           <TouchableOpacity
             style={ProductStyle.ButtonViewStyle}
             onPress={() => {
-              console.log("ato ihan");
               setViewState({
                 state: true,
                 data: {
                   id: id,
-                  name: name,
+                  nom: nom,
                   src: src,
                   desc: desc,
                   price: price,
@@ -102,7 +118,10 @@ export default function ProductItems({
               <Circle cx="12" cy="12" r="3" />
             </Svg>
           </TouchableOpacity>
-          <TouchableOpacity style={ProductStyle.ButtonRemoveStyle}>
+          <TouchableOpacity
+            style={ProductStyle.ButtonRemoveStyle}
+            onPress={() => handleDeleteData()}
+          >
             <Svg
               width="24"
               height="24"

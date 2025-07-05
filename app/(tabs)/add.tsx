@@ -1,18 +1,78 @@
 import { View } from "@/components/Themed";
+import { useState } from "react";
 import {
   StyleSheet,
   TextInput,
   Text,
   TouchableOpacity,
-  ScrollView,
+  // ScrollView,
   Platform,
   KeyboardAvoidingView,
 } from "react-native";
-import AddImagePath from "../productComponent/addImagePath";
+import ModalError from "../authentification/modalError";
+import { useAllData } from "@/context/dataContext";
+import ModalValide from "../authentification/modalValide";
+// import AddImagePath from "../productComponent/addImagePath";
 export default function Add() {
+  const { allData, setAllData } = useAllData();
+  const [nameProduct, setNameProduct] = useState("");
+  const [price, setPrice] = useState<number>(0);
+  const [stock, setStock] = useState<number>(0);
+  const [categories, setCategories] = useState("");
+  const [vendeur, setVendeur] = useState("");
+  const [description, setDescription] = useState("");
+  const [isError, setIsError] = useState<{ state: boolean; message: string }>({
+    state: false,
+    message: "",
+  });
+  const [isValide, setIsValide] = useState(false);
+  const handleAddProduct = () => {
+    console.log(nameProduct, price, stock, categories, vendeur, description);
+    if (
+      nameProduct.trim() === "" ||
+      price <= 0 ||
+      stock < 0 ||
+      categories.trim() === "" ||
+      vendeur.trim() === "" ||
+      description.trim() === ""
+    ) {
+      setIsError({
+        state: true,
+        message: "Veuillez remplir tous les champs correctement.",
+      });
+    } else {
+      const newProduct = {
+        id: allData.length + 1,
+        nom: nameProduct,
+        src: "image.png",
+        desc: description,
+        price: price,
+        stock: stock,
+        categories: categories,
+        vendeur: vendeur,
+      };
+      setAllData([...allData, newProduct]);
+      setNameProduct("");
+      setPrice(0);
+      setStock(0);
+      setCategories("");
+      setVendeur("");
+      setDescription("");
+      setIsValide(true);
+    }
+  };
   return (
     <>
-      {/* <AddImagePath /> */}
+      {isError.state && (
+        <ModalError
+          title="Erreur d'ajout"
+          message={isError.message}
+          setIsError={setIsError}
+        />
+      )}
+      {isValide && (
+        <ModalValide title="Ajout reussi" handle={() => setIsValide(false)} />
+      )}
       <KeyboardAvoidingView
         style={addStyle.container}
         behavior={Platform.OS == "ios" ? "padding" : "height"}
@@ -26,21 +86,37 @@ export default function Add() {
             <TextInput
               style={addStyle.InputStyle}
               placeholder="nom du produit"
+              value={nameProduct}
+              onChangeText={(text) => setNameProduct(text)}
+              autoCapitalize="none"
             />
             <TextInput
               style={addStyle.InputStyle}
               placeholder="prix en Ar"
               keyboardType="numeric"
+              value={price.toString()}
+              onChangeText={(text) => setPrice(Number(text))}
             />
             <TextInput
               style={addStyle.InputStyle}
               placeholder="nombre en stock"
               keyboardType="numeric"
+              value={stock.toString()}
+              onChangeText={(text) => setStock(Number(text))}
             />
-            <TextInput style={addStyle.InputStyle} placeholder="catégories" />
+            <TextInput
+              style={addStyle.InputStyle}
+              placeholder="catégories"
+              value={categories}
+              onChangeText={(text) => setCategories(text)}
+              autoCapitalize="none"
+            />
             <TextInput
               style={addStyle.InputStyle}
               placeholder="nom du vendeur"
+              value={vendeur}
+              onChangeText={(text) => setVendeur(text)}
+              autoCapitalize="none"
             />
             <TextInput
               style={addStyle.TextAreaStyle}
@@ -49,8 +125,14 @@ export default function Add() {
               multiline={true}
               numberOfLines={5}
               textAlignVertical="top"
+              onChangeText={(text) => setDescription(text)}
+              autoCapitalize="none"
+              value={description}
             />
-            <TouchableOpacity style={addStyle.ButtonStyle}>
+            <TouchableOpacity
+              style={addStyle.ButtonStyle}
+              onPress={handleAddProduct}
+            >
               <Text style={addStyle.TextButtonStyle}>Ajouter</Text>
             </TouchableOpacity>
           </View>

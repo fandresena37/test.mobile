@@ -14,6 +14,8 @@ import { useColorScheme } from "@/components/useColorScheme";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import Connexion from "./authentification/connexion";
 import Inscription from "./authentification/inscription";
+import { AllUserProvider } from "@/context/userContext";
+import { AllDataProvider } from "@/context/dataContext";
 // import { createNativeStackNavigator } from "@react-navigation/native-stack";
 // import Home from "./(tabs)/Accueil/home";
 // const Stack = createNativeStackNavigator();
@@ -58,13 +60,14 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
-    // <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-    <SafeAreaProvider>
-        <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-        <Stack screenOptions={{ headerShown: false }}>
-        </Stack>
-        </SafeAreaView>
-      </SafeAreaProvider>
-    // </ThemeProvider>
+    <AllDataProvider>
+      <AllUserProvider>
+        <SafeAreaProvider>
+          <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
+            <Stack screenOptions={{ headerShown: false }}></Stack>
+          </SafeAreaView>
+        </SafeAreaProvider>
+      </AllUserProvider>
+    </AllDataProvider>
   );
 }
